@@ -1,1 +1,21 @@
-TEST_docker.yml
+name: 构建docker镜像
+#手动触发
+on: workflow_dispatch
+#https://blog.csdn.net/AlanGrady/article/details/108241799
+env:
+  DEFAULT_PYTHON: 3.9
+
+jobs:
+  build:
+    # 当前脚本是在容器中运行的，对应的镜像是ubuntu-latest
+    runs-on: ubuntu-latest
+  
+    steps:
+    # 下载源码
+    - uses: actions/checkout@v2
+    
+    - name: Dump GitHub context
+    env:
+    GITHUB_CONTEXT: ${{ toJSON(github) }}
+    # 将GTIHUB的信息都打印出来，后面的脚本可以使用这些信息，例如后面的镜像TAG用的就是这里面的commitid
+    run: echo "Hello ${{ github.event.commits[0].id }}"
