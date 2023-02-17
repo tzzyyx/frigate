@@ -1,7 +1,6 @@
 name: On pull request
 
-on: pull_request
-
+on: workflow_dispatch
 env:
   DEFAULT_PYTHON: 3.9
 
